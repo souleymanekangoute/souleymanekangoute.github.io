@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Souleymane Kangoute, ingénieur télécoms et doctorant en R&D : communications sans fil, 6G, MIMO massif et apprentissage automatique pour la couche physique.">
+  <title>Souleymane Kangoute — Ingénieur télécoms & doctorant</title>
+
+  <style>
+    /* ---------- Variables & thème ---------- */
+    :root {
+      --bg: #f7f8fa;
+      --surface: #ffffff;
+      --text: #141a22;
+      --muted: #5d6673;
+      --line: #e1e5eb;
+      --accent: #1f5fbf;
+      --accent-soft: #e6eefb;
+      --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      --max: 1080px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f1318;
+        --surface: #161b22;
+        --text: #e6eaf0;
+        --muted: #98a2b0;
+        --line: #252c36;
+        --accent: #6ea8ff;
+        --accent-soft: #1a2638;
+      }
+    }
+
+    /* ---------- Base ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 1.0625rem;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .container {
+      width: min(100% - 3rem, var(--max));
+      margin-inline: auto;
+    }
+
+    h1, h2, h3 {
+      font-family: var(--serif);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    /* ---------- En-tête ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 4rem;
+    }
+
+    .logo {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .logo span { color: var(--accent); }
+
+    nav ul {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 0.95rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--text); }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      padding: 6.5rem 0 5.5rem;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin: 0 0 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      max-width: 16ch;
+      margin: 0 0 1.75rem;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero p {
+      max-width: 56ch;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin: 0 0 2.5rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      border: 1px solid var(--text);
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+
+    .btn:hover { background: var(--text); color: var(--bg); }
+
+    .btn.ghost { border-color: var(--line); color: var(--muted); }
+    .btn.ghost:hover { border-color: var(--text); background: transparent; color: var(--text); }
+
+    /* Onde décorative */
+    .wave {
+      display: block;
+      width: 100%;
+      height: 80px;
+      margin-top: 4rem;
+      color: var(--accent);
+      opacity: 0.55;
+    }
+
+    /* ---------- Sections ---------- */
+    section { padding: 5rem 0; border-top: 1px solid var(--line); }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-head h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      margin: 0;
+    }
+
+    .section-head span {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    /* À propos */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 4rem;
+    }
+
+    .about p { margin: 0 0 1.25rem; }
+
+    .facts { list-style: none; margin: 0; padding: 0; }
+
+    .facts li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 0.95rem;
+    }
+
+    .facts li span:first-child { color: var(--muted); }
+    .facts li span:last-child { text-align: right; }
+
+    /* Axes de recherche */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 1.75rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px -22px rgba(10, 30, 70, 0.3);
+    }
+
+    .icon {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .card h3 { font-size: 1.35rem; margin: 0 0 0.6rem; }
+
+    .card p {
+      margin: 0 0 1.1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+    .tags span {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.65rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--muted);
+    }
+
+    /* Publications */
+    .pubs { list-style: none; margin: 0; padding: 0; }
+
+    .pub {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      gap: 1.5rem;
+      padding: 1.6rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .pub:first-child { padding-top: 0; }
+
+    .pub-year {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--muted);
+      padding-top: 0.2rem;
+    }
+
+    .pub h3 {
+      font-family: var(--sans);
+      font-size: 1.05rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin: 0 0 0.35rem;
+    }
+
+    .authors { margin: 0 0 0.35rem; font-size: 0.93rem; color: var(--muted); }
+    .authors strong { color: var(--text); font-weight: 600; }
+
+    .venue {
+      margin: 0 0 0.75rem;
+      font-size: 0.9rem;
+      font-style: italic;
+      color: var(--muted);
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-style: normal;
+      font-size: 0.72rem;
+      padding: 0.1rem 0.5rem;
+      margin-right: 0.4rem;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    .links { display: flex; gap: 1rem; font-family: var(--mono); font-size: 0.8rem; }
+
+    .links a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+    }
+
+    .links a:hover { border-bottom-color: var(--accent); }
+
+    .more {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .more a { color: var(--accent); }
+
+    /* Parcours (frise) */
+    .timeline {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 1.75rem;
+      border-left: 1px solid var(--line);
+    }
+
+    .timeline li { position: relative; padding: 0 0 2.5rem; }
+    .timeline li:last-child { padding-bottom: 0; }
+
+    .timeline li::before {
+      content: "";
+      position: absolute;
+      left: calc(-1.75rem - 6px);
+      top: 0.45rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--accent);
+    }
+
+    .timeline li.current::before { background: var(--accent); }
+
+    .when {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .timeline h3 { font-size: 1.3rem; margin: 0.3rem 0 0.2rem; }
+
+    .where { margin: 0 0 0.5rem; font-size: 0.95rem; color: var(--muted); }
+
+    .timeline p:last-child { margin: 0; font-size: 0.95rem; max-width: 62ch; }
+
+    /* Compétences */
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+    }
+
+    .skills h3 {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin: 0 0 0.9rem;
+    }
+
+    .skills ul { list-style: none; margin: 0; padding: 0; }
+    .skills li { padding: 0.3rem 0; font-size: 0.97rem; }
+
+    /* Contact */
+    .contact { text-align: center; padding: 6rem 0; }
+
+    .contact h2 { font-size: clamp(2rem, 5vw, 3.3rem); margin: 0 0 1rem; }
+
+    .contact p {
+      color: var(--muted);
+      margin: 0 auto 2.5rem;
+      max-width: 50ch;
+    }
+
+    .mail {
+      font-family: var(--serif);
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      color: var(--accent);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 6px;
+    }
+
+    /* ---------- Pied de page ---------- */
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 2rem 0;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    footer ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    footer a { text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    /* ---------- Apparition au défilement ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+      .wave path { animation: none !important; }
+    }
+
+    .wave path { animation: drift 8s linear infinite; }
+
+    @keyframes drift {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-200px); }
+    }
+
+    /* ---------- Mobile ---------- */
+    @media (max-width: 760px) {
+      nav ul { gap: 1rem; }
+      nav li.hide-sm { display: none; }
+      .hero { padding: 4.5rem 0 3.5rem; }
+      .about { grid-template-columns: 1fr; gap: 2rem; }
+      section { padding: 3.5rem 0; }
+      .pub { grid-template-columns: 1fr; gap: 0.4rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">S. Kangoute<span>.</span></a>
+      <nav>
+        <ul>
+          <li><a href="#recherche">Recherche</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li class="hide-sm"><a href="#parcours">Parcours</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <div class="container hero">
+      <p class="eyebrow reveal">// Ingénieur télécoms · Doctorant en R&D</p>
+      <h1 class="reveal">Concevoir les réseaux sans fil de <em>demain</em>.</h1>
+      <p class="reveal">Je prépare une thèse sur le MIMO massif et les surfaces intelligentes reconfigurables pour la 6G, à l'interface entre la théorie du signal, l'apprentissage automatique et l'expérimentation sur banc radio.</p>
+      <div class="actions reveal">
+        <a href="#publications" class="btn">Voir mes publications →</a>
+        <a href="cv-souleymane-kangoute.pdf" class="btn ghost">Télécharger le CV (PDF)</a>
+      </div>
+
+      <!-- Signal décoratif -->
+      <svg class="wave" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true">
+        <path fill="none" stroke="currentColor" stroke-width="1.5"
+          d="M0 40 Q 50 0 100 40 T 200 40 T 300 40 T 400 40 T 500 40 T 600 40 T 700 40 T 800 40 T 900 40 T 1000 40 T 1100 40 T 1200 40 T 1300 40 T 1400 40" />
+        <path fill="none" stroke="currentColor" stroke-width="1" opacity="0.45"
+          d="M0 40 Q 25 20 50 40 T 100 40 T 150 40 T 200 40 T 250 40 T 300 40 T 350 40 T 400 40 T 450 40 T 500 40 T 550 40 T 600 40 T 650 40 T 700 40 T 750 40 T 800 40 T 850 40 T 900 40 T 950 40 T 1000 40 T 1050 40 T 1100 40 T 1150 40 T 1200 40 T 1250 40 T 1300 40 T 1350 40 T 1400 40" />
+      </svg>
+    </div>
+
+    <!-- À propos -->
+    <section id="apropos">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>À propos</h2>
+          <span>01</span>
+        </div>
+        <div class="about">
+          <ul class="facts reveal">
+            <li><span>Statut</span><span>Doctorant (2ᵉ année)</span></li>
+            <li><span>Formation</span><span>Ingénieur télécoms</span></li>
+            <li><span>Laboratoire</span><span>Laboratoire Réseaux & Signal</span></li>
+            <li><span>Partenaire</span><span>Thèse CIFRE, industriel télécoms</span></li>
+            <li><span>Soutenance</span><span>Prévue fin 2027</span></li>
+          </ul>
+          <div class="reveal">
+            <p>Diplômé d'une école d'ingénieurs en télécommunications, j'ai d'abord travaillé sur le déploiement de réseaux 4G/5G avant de revenir à la recherche. Ce double regard, entre l'industrie et le laboratoire, guide ma façon de travailler : des modèles rigoureux, mais toujours confrontés à des contraintes réelles.</p>
+            <p>Ma thèse porte sur l'optimisation conjointe de la formation de faisceaux et des surfaces intelligentes reconfigurables (RIS) afin d'améliorer la couverture et l'efficacité énergétique des futurs réseaux 6G.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Axes de recherche -->
+    <section id="recherche">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Axes de recherche</h2>
+          <span>02</span>
+        </div>
+        <div class="grid">
+          <article class="card reveal">
+            <div class="icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 20v-9" /><path d="M8.5 8.5a5 5 0 0 1 7 0" /><path d="M5.5 5.5a9 9 0 0 1 13 0" /><circle cx="12" cy="11" r="1" />
+              </svg>
+            </div>
+            <h3>MIMO massif & beamforming</h3>
+            <p>Précodage à faible complexité et estimation de canal pour des réseaux d'antennes de grande taille.</p>
+            <div class="tags"><span>Traitement du signal</span><span>Optimisation</span></div>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                <rect x="4" y="4" width="16" height="16" rx="2" /><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16" />
+              </svg>
+            </div>
+            <h3>Surfaces intelligentes (RIS)</h3>
+            <p>Modélisation et contrôle de surfaces passives programmables pour façonner la propagation radio.</p>
+            <div class="tags"><span>6G</span><span>Propagation</span></div>
+          </article>
+
+          <article class="card reveal">
+            <div class="icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+                <circle cx="5" cy="7" r="2" /><circle cx="5" cy="17" r="2" /><circle cx="19" cy="12" r="2" /><circle cx="12" cy="12" r="2" />
+                <path d="M7 7.8 10.2 11M7 16.2l3.2-3.2M14 12h3" />
+              </svg>
+            </div>
+            <h3>IA pour la couche physique</h3>
+            <p>Réseaux de neurones pour l'égalisation, la détection et l'allocation de ressources en temps réel.</p>
+            <div class="tags"><span>Deep learning</span><span>PyTorch</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Publications choisies</h2>
+          <span>03</span>
+        </div>
+        <ul class="pubs">
+          <li class="pub reveal">
+            <div class="pub-year">2026</div>
+            <div>
+              <h3>Joint Active and Passive Beamforming for RIS-Aided Cell-Free Massive MIMO</h3>
+              <p class="authors"><strong>S. Kangoute</strong>, L. Garnier, M. Haddad</p>
+              <p class="venue"><span class="badge">Revue</span>IEEE Transactions on Wireless Communications</p>
+              <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Code</a><a href="#">BibTeX</a></div>
+            </div>
+          </li>
+          <li class="pub reveal">
+            <div class="pub-year">2025</div>
+            <div>
+              <h3>Learning-Based Channel Estimation for Wideband RIS Systems with Hardware Impairments</h3>
+              <p class="authors"><strong>S. Kangoute</strong>, M. Haddad</p>
+              <p class="venue"><span class="badge">Conférence</span>IEEE International Conference on Communications (ICC)</p>
+              <div class="links"><a href="#">PDF</a><a href="#">DOI</a><a href="#">Slides</a></div>
+            </div>
+          </li>
+          <li class="pub reveal">
+            <div class="pub-year">2025</div>
+            <div>
+              <h3>Energy-Efficient Precoding for Sub-THz Massive MIMO: An Experimental Study</h3>
+              <p class="authors">S. Lambert, <strong>S. Kangoute</strong>, L. Garnier</p>
+              <p class="venue"><span class="badge">Conférence</span>IEEE Globecom Workshops</p>
+              <div class="links"><a href="#">PDF</a><a href="#">DOI</a></div>
+            </div>
+          </li>
+        </ul>
+        <p class="more reveal">Liste complète sur <a href="#">Google Scholar</a> et <a href="#">HAL</a>.</p>
+      </div>
+    </section>
+
+    <!-- Parcours -->
+    <section id="parcours">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Parcours</h2>
+          <span>04</span>
+        </div>
+        <ol class="timeline">
+          <li class="current reveal">
+            <span class="when">2024 — aujourd'hui</span>
+            <h3>Doctorat en télécommunications</h3>
+            <p class="where">Laboratoire Réseaux & Signal · thèse CIFRE</p>
+            <p>Optimisation des surfaces intelligentes reconfigurables et du MIMO massif pour la 6G. Validation sur un banc de test radio logicielle (SDR).</p>
+          </li>
+          <li class="reveal">
+            <span class="when">2021 — 2024</span>
+            <h3>Ingénieur radio 4G/5G</h3>
+            <p class="where">Opérateur télécoms · Paris</p>
+            <p>Planification et optimisation du réseau d'accès radio, analyse de performances terrain et tests d'interopérabilité.</p>
+          </li>
+          <li class="reveal">
+            <span class="when">2018 — 2021</span>
+            <h3>Diplôme d'ingénieur, Télécommunications</h3>
+            <p class="where">École d'ingénieurs · spécialité Systèmes de communication</p>
+            <p>Projet de fin d'études en recherche : détection multi-utilisateurs par apprentissage profond.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- Compétences -->
+    <section id="competences">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2>Compétences</h2>
+          <span>05</span>
+        </div>
+        <div class="skills reveal">
+          <div>
+            <h3>Théorie</h3>
+            <ul><li>Traitement du signal</li><li>Théorie de l'information</li><li>Optimisation convexe</li><li>Propagation radio</li></ul>
+          </div>
+          <div>
+            <h3>Outils & langages</h3>
+            <ul><li>MATLAB, Python</li><li>PyTorch, NumPy</li><li>GNU Radio, USRP</li><li>C++, LaTeX, Git</li></ul>
+          </div>
+          <div>
+            <h3>Normes & réseaux</h3>
+            <ul><li>3GPP 5G NR</li><li>LTE / LTE-A</li><li>O-RAN</li><li>Wi-Fi 6/7</li></ul>
+          </div>
+          <div>
+            <h3>Langues</h3>
+            <ul><li>Français (natif)</li><li>Anglais (C1)</li><li>Espagnol (B1)</li></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <div class="container contact reveal">
+        <h2>Échangeons.</h2>
+        <p>Ouvert aux collaborations de recherche, aux séminaires et aux postes post-doctoraux ou R&D industrielle à partir de 2028.</p>
+        <a href="mailto:souleymane.kangoute@exemple.fr" class="mail">souleymane.kangoute@exemple.fr</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <span>© <span id="annee"></span> Souleymane Kangoute</span>
+      <ul>
+        <li><a href="#">Google Scholar</a></li>
+        <li><a href="#">ORCID</a></li>
+        <li><a href="#">GitHub</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    // Année automatique dans le pied de page
+    document.getElementById("annee").textContent = new Date().getFullYear();
+
+    // Apparition douce des éléments au défilement
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
